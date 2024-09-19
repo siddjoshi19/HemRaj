@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - HemRaj</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+    <script src="script.js" defer></script> <!-- Link to script.js for handling form submission -->
 </head>
 <body>
     <header>
@@ -20,12 +20,15 @@
     <main>
         <section class="contact">
             <h2>Get in Touch</h2>
-            <form action="/submit-contact" method="POST">
+            <form id="contactForm">
                 <input type="text" id="name" name="name" placeholder="Name" required>
                 <input type="email" id="email" name="email" placeholder="Email" required>
                 <textarea id="message" name="message" placeholder="Message" required></textarea>
                 <button type="submit" class="cta-button">Submit</button>
             </form>
+            <div id="confirmationMessage" style="display:none; color:green; margin-top: 10px;">
+                Your information has been submitted!
+            </div>
         </section>
     </main>
     <footer>
