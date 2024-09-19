@@ -1,0 +1,115 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #eef2f3;
+    margin: 0;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    padding: 20px 0;
+    background: #007bff;
+    color: white;
+}
+
+h1 {
+    margin: 0;
+}
+
+nav {
+    margin: 20px 0;
+}
+
+nav a {
+    margin: 0 15px;
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    text-decoration: underline;
+    color: #ffd700; /* Gold color on hover */
+}
+
+main {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.hero {
+    background: linear-gradient(135deg, #007bff, #00bfff);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 5px;
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+section {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.history {
+    background-color: #f8f9fa;
+}
+
+.mission {
+    background-color: #f0f8ff; /* Alice Blue */
+}
+
+.address {
+    background-color: #fffacd; /* Lemon Chiffon */
+}
+
+section:hover {
+    background: rgba(0, 123, 255, 0.1);
+}
+
+input, textarea {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.cta-button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.cta-button:hover {
+    background: #0056b3;
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background: #007bff;
+    color: white;
+    margin-top: 20px;
+}
