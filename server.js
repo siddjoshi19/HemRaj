@@ -1,53 +1,58 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
-const path = require('path');
+const path = require('path'); // Correctly handle file paths
 const app = express();
 
 // Middleware to parse form data
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Serve static files (like your HTML, CSS, and JS)
-app.use(express.static('public'));
+// Serve static files (HTML, CSS, JS)
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Path to the JSON file where we will store the visitor's data
+// Path to the visitors.json file
 const visitorsFile = path.join(__dirname, 'visitors.json');
 
 // Handle form submission
 app.post('/submit-contact', (req, res) => {
     const { name, email, message } = req.body;
 
-    console.log(`Received submission: Name: ${name}, Email: ${email}, Message: ${message}`);
+    // Log received form data for debugging
+    console.log(`Received: Name: ${name}, Email: ${email}, Message: ${message}`);
 
-    // Read the existing data from visitors.json
+    // Read the current contents of visitors.json
     fs.readFile(visitorsFile, 'utf8', (err, data) => {
         if (err) {
-            console.error('Error reading visitors file', err);
-            return res.status(500).send('Error reading visitor data.');
+            console.error('Error reading visitors.json file:', err);
+            return res.status(500).send('Internal Server Error');
         }
 
         let visitors = [];
 
-        // If the file is not empty, parse the existing data
+        // If the file contains data, parse it
         if (data) {
-            visitors = JSON.parse(data);
-            console.log('Existing visitors data:', visitors);
+            try {
+                visitors = JSON.parse(data);
+            } catch (parseErr) {
+                console.error('Error parsing visitors.json:', parseErr);
+                return res.status(500).send('Error processing visitor data');
+            }
         }
 
-        // Add the new visitor's details
+        // Add the new visitor data
         visitors.push({ name, email, message });
 
-        // Write the updated data back to visitors.json
+        // Write the updated visitors data back to visitors.json
         fs.writeFile(visitorsFile, JSON.stringify(visitors, null, 2), (err) => {
             if (err) {
-                console.error('Error saving visitor data', err);
-                return res.status(500).send('Error saving your details.');
+                console.error('Error writing to visitors.json:', err);
+                return res.status(500).send('Error saving visitor data');
             }
 
-            console.log('New visitor data saved successfully!');
-            // Respond to the user
-            res.send('Thank you for contacting us! We will get back to you shortly.');
+            // Successfully saved
+            console.log('Visitor data saved successfully!');
+            res.send('Thank you for submitting your details!');
         });
     });
 });
